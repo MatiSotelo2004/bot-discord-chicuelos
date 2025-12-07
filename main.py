@@ -35,5 +35,4 @@ TOKEN = os.environ.get('DISCORD_TOKEN')
 if TOKEN is None:
     print("ERROR DE CONFIGURACIÓN: La variable de entorno 'DISCORD_TOKEN' no está configurada.")
 else:
-    keep_alive()
     bot.run(TOKEN)
