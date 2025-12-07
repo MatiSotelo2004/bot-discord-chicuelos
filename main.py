@@ -8,6 +8,7 @@ import random
 intents = discord.Intents.default()
 intents.voice_states = True 
 intents.guilds = True
+intents.message_content = True
 
 bot = commands.Bot(command_prefix='$', intents=intents)
 
@@ -34,12 +35,6 @@ async def on_voice_state_update(member, before, after):
         elif after.channel.name == "Musiquita":
             await channel.send(f"{member.mention} está aquí. Si pone Lali, lo baneamos.")
 
-TOKEN = os.environ.get('DISCORD_TOKEN') 
-
-if TOKEN is None:
-    print("ERROR DE CONFIGURACIÓN: La variable de entorno 'DISCORD_TOKEN' no está configurada.")
-else:
-    bot.run(TOKEN)
 
 # ________RULETA DE JUEGOS__________
 
@@ -130,3 +125,11 @@ async def tirar_ruleta(ctx):
 
     elegido = random.choice(opciones)[0] # [0] porque viene como tupla ('Juego',)
     await ctx.send(f'🎲 La ruleta giró y el destino eligió: **{elegido}** 🏆')
+
+
+TOKEN = os.environ.get('DISCORD_TOKEN') 
+
+if TOKEN is None:
+    print("ERROR DE CONFIGURACIÓN: La variable de entorno 'DISCORD_TOKEN' no está configurada.")
+else:
+    bot.run(TOKEN)
