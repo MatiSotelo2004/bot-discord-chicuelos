@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from keep_alive import keep_alive
+# from keep_alive import keep_alive
 import os
 
 # Configuración de Intents
@@ -10,7 +10,7 @@ intents.guilds = True
 
 bot = commands.Bot(command_prefix='$', intents=intents)
 
-ID_CANAL = 1443613756956479670
+ID_CANAL = 1446630362917896243
 
 @bot.event
 async def on_ready():
