@@ -18,6 +18,11 @@ ID_CANAL = 1446630362917896243
 async def on_ready():
     configurar_bd()
     print(f'Bot conectado como: {bot.user}')
+    try:
+        synced = await bot.tree.sync()
+        print(f"🌲 Se han sincronizado {len(synced)} comandos Slash.")
+    except Exception as e:
+        print(e)
 
 
 # ---------AVISOS DE CANALES------------
@@ -57,7 +62,7 @@ def configurar_bd():
     conn.close()
 
 # 1. COMANDO PARA AGREGAR OPCIONES
-@bot.command(name='agregar')
+@bot.hybrid_command(name='agregar', description='Agrega una opción a la lista.')
 async def agregar_opcion(ctx, *, opcion: str):
     """Agrega una opción a la lista."""
     try:
@@ -72,7 +77,7 @@ async def agregar_opcion(ctx, *, opcion: str):
         await ctx.send(f'⚠️ Epa, **{opcion}** ya estaba en la lista.')
 
 # 2. COMANDO PARA ELIMINAR JUEGOS
-@bot.command(name='eliminar')
+@bot.hybrid_command(name='eliminar', description='Elimina una opción de la lista.')
 async def eliminar_opcion(ctx, *, opcion: str):
     """Elimina una opción de la lista."""
     conn = conectar_bd()
@@ -89,7 +94,7 @@ async def eliminar_opcion(ctx, *, opcion: str):
     conn.close()
 
 # 3. COMANDO PARA VER LA LISTA
-@bot.command(name='lista')
+@bot.hybrid_command(name='lista', description='Muestra todas las opciones disponibles.')
 async def ver_lista(ctx):
     """Muestra todas las opciones disponibles."""
     conn = conectar_bd()
@@ -110,9 +115,9 @@ async def ver_lista(ctx):
     await ctx.send(embed=embed)
 
 # 4. COMANDO DE LA RULETA
-@bot.command(name='ruleta')
+@bot.hybrid_command(name='ruleta', description='Elige una opción al azar de la lista.')
 async def tirar_ruleta(ctx):
-    """Elige un juego al azar de la base de datos."""
+    """Elige una opción al azar de la base de datos."""
     conn = conectar_bd()
     cursor = conn.cursor()
     cursor.execute("SELECT nombre FROM opciones_ruleta")
