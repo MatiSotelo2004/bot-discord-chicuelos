@@ -131,6 +131,18 @@ async def tirar_ruleta(ctx):
     elegido = random.choice(opciones)[0] # [0] porque viene como tupla ('Juego',)
     await ctx.send(f'🎲 La ruleta giró y el destino eligió: **{elegido}** 🏆')
 
+#5. COMANDO PARA LIMPIAR LA LISTA
+@bot.hybrid_command(name='limpiar', description='Limpia todas las opciones de la lista.')
+async def limpiar_lista(ctx):
+    """Limpia todas las opciones de la lista."""
+    conn = conectar_bd()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM opciones_ruleta")
+    conn.commit()
+    conn.close()
+    await ctx.send('🧹 La lista ha sido limpiada. Ahora está vacía.')
+
+
 
 TOKEN = os.environ.get('DISCORD_TOKEN') 
 
